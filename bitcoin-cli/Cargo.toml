@@ -10,3 +10,8 @@ clap = "4.1.13"
 tokio = { version = "1.26.0", features = ["full"] }
 bitcoin="0.29.2"
 serde="1.0.158"
+
+
+# [dependencies.async-std]
+# version = "1.10.0"
+# features = ["attributes"]

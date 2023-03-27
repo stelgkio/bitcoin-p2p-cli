@@ -7,25 +7,40 @@ use crate::config::Config;
 
 #[derive(Debug)]
 pub struct P2P{
-    config:Config,
-    address: SocketAddr,
+    config:Config,    
+    network:constants::Network
 
 }
 impl P2P {
     pub fn new(conf:Config)->P2P{
-        P2P {config:conf.clone(),address:self::set_SockeAddr(&conf)}
+        P2P {config:conf.clone(),network:set_network(&conf)}
     }
-
-  
+    pub fn get_ip(&self) -> &str {
+        &self.config.get_ip()
+    }
+    
+    pub fn get_port(&self) -> &str {
+        &self.config.get_port()
+    }
+   
+    pub fn get_network(&self) -> &constants::Network {
+        &self.network
+    }  
 }
-fn set_SockeAddr(cnf:&Config)-> SocketAddr {
+   
 
-    let address= format!("{}:{}",cnf.get_ip(),cnf.get_port()).parse().unwrap();
-     //     eprintln!("Error parsing address: {:?}", error);
+ fn set_network(cnf:&Config)-> constants::Network {
+    let value =cnf.get_network();
+    let network= match  value  {
+        "regtest"=>constants::Network::Regtest,
+        "bitcoin"=>constants::Network::Bitcoin,
+        "testnet"=>constants::Network::Testnet,
+        _=>constants::Network::Regtest
         
-     // });
-     address
- }    
+    };
+    network
+ }  
+
 
 pub fn build_version_message(address: SocketAddr) -> message::NetworkMessage {
     // Building version message, see https://en.bitcoin.it/wiki/Protocol_documentation#version

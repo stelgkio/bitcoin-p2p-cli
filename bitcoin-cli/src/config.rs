@@ -11,21 +11,23 @@ pub struct Config {
 impl Config {
     // Define a new function to create a Config instance from the command-line arguments
    pub fn new() -> Self {
-        let matches = Command::new("My CLI")
+        let matches = Command::new("Bitcoin test connection CLI")
             .version("1.0")
-            .author("Your Name")
-            .about("A CLI for demonstrating Clap")
-            .arg(arg!(--ip <IP_ADDRESS>).help("The IP address").required(false).long("ip"))
-            .arg(arg!(--port <PORT_NUMBER>).help("The port number").required(false).long("port"))
-            .arg(arg!(--network <BITCOIN_NETWORK>).help("The Bitcoin network (e.g. regtest)").required(false).long("network"))
+            .author("Steliano Gjoka")
+            .about("A CLI for testing bitcoin node connection")
+            .arg(arg!(--ip <IP_ADDRESS>).help("The ip address").required(true).long("ip"))
+            .arg(arg!(--port <PORT_NUMBER>).help("The port number").required(true).long("port"))
+            .arg(arg!(--network <BITCOIN_NETWORK>).help("The Bitcoin network (e.g. regtest)").required(true).long("network"))
              .get_matches();
 
+           
         Config {
             ip: matches.get_one::<String>("ip").unwrap().to_string(),
             port: matches.get_one::<String>("port").unwrap().to_string(),
             network: matches.get_one::<String>("network").unwrap().to_string(),
         }
     }
+    
     pub fn get_ip(&self) -> &str {
         &self.ip
     }
@@ -40,3 +42,5 @@ impl Config {
 
     
 }
+
+
