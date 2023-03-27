@@ -54,7 +54,8 @@ Then we can navigate to the target folder and run two commands
     Received verack message: Verack
 
 or
-    /bitcoin-cli --help
+
+    ./bitcoin-cli --help
 
 A CLI for testing bitcoin node connection
 

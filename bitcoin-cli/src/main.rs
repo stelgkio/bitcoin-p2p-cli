@@ -52,7 +52,7 @@ async fn on_connection(p2p:P2P) -> Result<(), Box<dyn std::error::Error>> {
         magic: p2p.get_network().magic(),
         payload: version_message,
     };
-    
+
     let mut stream = TcpStream::connect(address).await.expect("Failed to open connection");
     stream.set_nodelay(true)?;
     
